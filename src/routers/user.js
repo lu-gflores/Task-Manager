@@ -88,6 +88,7 @@ router.delete('/users/me', auth, async (req, res) => {
     try {
         //mongoose method 
         await req.user.remove()
+
         res.send(req.user)
 
     } catch (err) {
