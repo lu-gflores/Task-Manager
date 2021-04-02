@@ -59,6 +59,17 @@ userSchema.methods.generateAuthToken = async function () {
     await user.save()
     return token
 }
+//removes user's password and tokens from being shown when logging in
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObj = user.toObject()
+
+    delete userObj.password
+    delete userObj.tokens
+
+    return userObj
+}
+
 
 //custom function for user model; accessible on the model
 userSchema.statics.findByCredentials = async (email, password) => {
