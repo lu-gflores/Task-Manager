@@ -49,6 +49,14 @@ const userSchema = new mongoose.Schema({
         }
     }]
 })
+
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
+
 //accessible on the instances created from the model (instance method)
 userSchema.methods.generateAuthToken = async function () {
     const user = this
@@ -69,6 +77,7 @@ userSchema.methods.toJSON = function () {
 
     return userObj
 }
+
 
 
 //custom function for user model; accessible on the model
